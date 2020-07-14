@@ -1,8 +1,9 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
 
-from .api import ListApi, CardApi
+from .api import ListViewSet, CardViewSet
 
-urlpatterns = [
-    path('lists', ListApi.as_view()),
-    path('cards', CardApi.as_view())
-]
+router = DefaultRouter()
+router.register('lists', ListViewSet)
+router.register('cards', CardViewSet)
+
+urlpatterns = router.urls

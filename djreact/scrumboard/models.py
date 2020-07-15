@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import ValidationError, MinValueValidator
 
 class List(models.Model):
     name = models.CharField(max_length=50)
@@ -11,8 +12,8 @@ class Card(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     list = models.ForeignKey(List, related_name="cards", on_delete=models.CASCADE)
-    story_points = models.IntegerField(null=True, blank=True)
-    businessValue = models.IntegerField(null=True, blank=True)
+    story_points = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)])
+    businessValue = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)])
 
     def __str__(self):
         return f"Card: {self.title}"

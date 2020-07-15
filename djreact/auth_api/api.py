@@ -1,5 +1,4 @@
 from django.contrib.auth import authenticate, login, logout
-
 from rest_framework import status, views
 from rest_framework.response import Response
 
@@ -10,15 +9,15 @@ class LoginView(views.APIView):
 
     def post(self, request):
         user = authenticate(
-            username = request.data.get("username"),
-            password = request.data.get("password")
+            username=request.data.get("username"),
+            password=request.data.get("password")
         )
 
         if user is None or not user.is_active:
             return Response({
                 'status': 'Unauthorized',
                 'message': 'Username or password incorrect'
-            }, status = status.HTTP_401_UNAUTHORIZED)
+            }, status=status.HTTP_401_UNAUTHORIZED)
 
         login(request, user)
         return Response(UserSerializer(user).data)

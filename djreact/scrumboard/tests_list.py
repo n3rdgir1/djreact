@@ -3,8 +3,8 @@ from django.test import TestCase
 from .models import List
 from .serializers import ListSerializer
 
-class ListTests(TestCase):
 
+class ListTests(TestCase):
     test_name = 'The List'
 
     def setUp(self):

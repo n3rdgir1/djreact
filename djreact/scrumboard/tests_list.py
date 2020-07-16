@@ -10,18 +10,17 @@ class ListTests(TestCase):
     def setUp(self):
         List.objects.create(name=self.test_name)
 
-    def test_list_keeps_name(self):
-        test_object = List.objects.get(name=self.test_name)
+    @property
+    def test_object(self):
+        return List.objects.get(name=self.test_name)
 
-        assert test_object.name == self.test_name
+    def test_list_keeps_name(self):
+        assert self.test_object.name == self.test_name
 
     def test_list_displays_nicely(self):
-        test_object = List.objects.get(name=self.test_name)
-
-        assert f'{test_object}' == f'List: {self.test_name}'
+        assert f'{self.test_object}' == f'List: {self.test_name}'
 
     def test_list_serializes_properly(self):
-        test_object = List.objects.get(name=self.test_name)
-        serialized = ListSerializer(test_object)
+        serialized = ListSerializer(self.test_object)
 
-        assert serialized.data == {'id': test_object.id, 'name': self.test_name}
+        assert serialized.data == {'id': self.test_object.id, 'name': self.test_name}
